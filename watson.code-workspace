@@ -8,10 +8,10 @@
       "name": "🚀 Api",
       "path": "./apps/api/src"
     },
-    // {
-    //   "name": "⏰ Downloader",
-    //   "path": "./apps/downloader/src"
-    // },
+    {
+      "name": "⏰ Downloader",
+      "path": "./apps/downloader/src"
+    },
     // {
     //   "name": "⏰ Analyzer",
     //   "path": "./apps/analyzer/src"
@@ -20,10 +20,10 @@
       "name": "📦 Models",
       "path": "./libs/models/src"
     },
-    // {
-    //   "name": "🧰 Core",
-    //   "path": "./libs/core/src"
-    // },
+    {
+      "name": "🧰 Core",
+      "path": "./libs/core/src"
+    },
     {
       "name": "Monorepo",
       "path": "."
