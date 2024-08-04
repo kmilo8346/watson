@@ -2,6 +2,9 @@ import { Credentials } from '@watson/models';
 import type { FormProps } from 'antd';
 import { Button, Card, Flex, Form, Input, Layout, message } from 'antd';
 import { useState } from 'react';
+import { authClient } from '../../clients';
+import { authenticator } from '../../lib';
+import { AxiosError } from 'axios';
 
 const { Content } = Layout;
 
@@ -11,24 +14,26 @@ interface LoginPageProps {
 
 export function LoginPage(props: LoginPageProps) {
   const [loading, setLoading] = useState(false);
-  const [showError, setShowError] = useState(false);
 
-  const handleLogin: FormProps<Credentials>['onFinish'] = async (values) => {
+  const handleLogin: FormProps<Credentials>['onFinish'] = async (
+    credentials
+  ) => {
     try {
       setLoading(true);
 
-      // const auth = await authClient.login(form);
-      // await authenticator.signIn(auth);
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const auth = await authClient.login(credentials);
+      authenticator.signIn(auth);
 
       props.onLoggedIn();
     } catch (error) {
       console.error('Failed to login: ', error);
 
-      message.error(
-        'No se pudo iniciar sesión. Por favor, verifica tu usuario y contraseña e inténtalo de nuevo.'
-      );
+      let text = 'No se pudo iniciar sesión. Por favor, inténtalo de nuevo.';
+      if ((error as AxiosError).response?.status === 400) {
+        text =
+          'No se pudo iniciar sesión. Por favor, verifica tu usuario y contraseña e inténtalo de nuevo.';
+      }
+      message.error(text);
     } finally {
       setLoading(false);
     }

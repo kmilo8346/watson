@@ -40,7 +40,7 @@
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["core:build", "build"],
+      "dependsOn": ["build"],
       "options": {
         "buildTarget": "downloader:build",
         "runBuildTargetDependencies": false
