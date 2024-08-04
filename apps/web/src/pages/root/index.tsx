@@ -2,6 +2,8 @@ import {
   DatabaseOutlined,
   FilterOutlined,
   PlusOutlined,
+  SettingOutlined,
+  OrderedListOutlined,
 } from '@ant-design/icons';
 import { Button, Divider, Flex, Layout, Menu, Select, Spin, theme } from 'antd';
 import { useEffect, useState } from 'react';
@@ -29,22 +31,22 @@ export function RootPage() {
 
   const handleBoot = async () => {
     setTimeout(() => {
-      setSelectedDataSource('1');
+      setSelectedDataSource('66aff2e3ac74178089addd12');
       setDatasources({
         from: 0,
         size: 10,
         total: 1,
         data: [
           {
-            _id: '1',
+            _id: '66aff2e3ac74178089addd12',
             name: 'Tesla',
-            description: 'Información de Tesla',
+            description: 'Grupo de cuentas expertas en Tesla',
             enabled: true,
             x_query: {
-              list_id: '1',
+              list_id: '1818981745355575537',
             },
-            _created_at: new Date().toISOString(),
-            _updated_at: new Date().toISOString(),
+            _created_at: '2024-08-04T21:30:11.736Z',
+            _updated_at: '2024-08-04T21:40:04.689Z',
           },
         ],
       });
@@ -96,8 +98,21 @@ export function RootPage() {
                 },
                 {
                   key: '2',
-                  icon: <FilterOutlined />,
-                  label: <Link to="/filters">Filters</Link>,
+                  icon: <OrderedListOutlined />,
+                  label: <Link to="/tweets">Trends</Link>,
+                },
+
+                {
+                  key: '3',
+                  icon: <SettingOutlined />,
+                  label: 'Config',
+                  children: [
+                    {
+                      key: '3.1',
+                      icon: <FilterOutlined />,
+                      label: <Link to="/filters">Filtros</Link>,
+                    },
+                  ],
                 },
               ]}
             />

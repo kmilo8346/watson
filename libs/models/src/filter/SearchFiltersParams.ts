@@ -1,5 +1,11 @@
 import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsOptional, ValidateNested } from 'class-validator';
+import {
+  IsBoolean,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { SearchParams } from '../core';
 
 class Filter {
@@ -7,6 +13,11 @@ class Filter {
   @IsBoolean()
   @Transform(({ value }) => value === 'true')
   enabled?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  data_source_id?: string;
 }
 
 export class SearchFiltersParams extends SearchParams {
