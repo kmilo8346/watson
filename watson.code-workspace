@@ -4,10 +4,10 @@
       "name": "🌐 Web",
       "path": "./apps/web/src"
     },
-    // {
-    //   "name": "🚀 Api",
-    //   "path": "./apps/api/src"
-    // },
+    {
+      "name": "🚀 Api",
+      "path": "./apps/api/src"
+    },
     // {
     //   "name": "⏰ Downloader",
     //   "path": "./apps/downloader/src"

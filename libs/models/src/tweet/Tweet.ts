@@ -1,4 +1,4 @@
-import { Entity } from '../base/Entity';
+import { Entity } from '../core';
 
 export class Tweet extends Entity {
   id!: string;

@@ -1,4 +1,4 @@
-import { Entity } from '../base/Entity';
+import { Entity } from '../core';
 
 export class Filter extends Entity {
   data_source_id!: string;

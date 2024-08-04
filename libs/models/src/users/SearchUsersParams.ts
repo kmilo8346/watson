@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
 import { IsOptional, ValidateNested } from 'class-validator';
-import { SearchParams } from '../rest';
+import { SearchParams } from '../core';
 
 class Filter {}
 

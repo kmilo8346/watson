@@ -23,5 +23,5 @@ export class UpdateUser {
   @IsArray()
   @ArrayNotEmpty()
   @IsString({ each: true })
-  research_ids?: string[];
+  data_source_ids?: string[];
 }

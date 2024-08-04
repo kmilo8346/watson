@@ -5,7 +5,7 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { SearchParams } from '../rest';
+import { SearchParams } from '../core';
 
 class Filter {
   @IsOptional()
