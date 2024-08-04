@@ -1,14 +1,40 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import { useState } from 'react';
+import { BootPage, LoginPage, RootPage } from '../pages';
+import { authenticator, streamer } from '../lib';
 
-import NxWelcome from './nx-welcome';
+type View = 'BOOT' | 'LOGIN' | 'ROOT';
 
 export function App() {
-  return (
-    <div>
-      <NxWelcome title="web" />
-    </div>
-  );
+  const [view, setView] = useState<View>('BOOT');
+
+  const handleBooted = () => {
+    const isAuthenticated = authenticator.isAuthenticated();
+
+    if (isAuthenticated) {
+      setView('ROOT');
+      return;
+    }
+
+    setView('LOGIN');
+  };
+
+  const handleLoggedIn = () => {
+    setView('ROOT');
+  };
+
+  const renderBOOT = () => <BootPage onBooted={handleBooted} />;
+
+  const renderLOGIN = () => <LoginPage onLoggedIn={handleLoggedIn} />;
+
+  const renderROOT = () => <RootPage />;
+
+  const renders: Record<View, () => JSX.Element> = {
+    BOOT: renderBOOT,
+    LOGIN: renderLOGIN,
+    ROOT: renderROOT,
+  };
+
+  return renders[view]();
 }
 
 export default App;
