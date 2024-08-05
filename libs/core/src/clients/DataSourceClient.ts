@@ -1,10 +1,16 @@
-import { CreateDataSource, DataSource, UpdateDataSource } from '@watson/models';
+import {
+  CreateDataSource,
+  DataSource,
+  SearchDataSourcesParams,
+  UpdateDataSource,
+} from '@watson/models';
 import { IConfig, RESTClient } from './RESTClient';
 
 export class DataSourceClient extends RESTClient<
   DataSource,
   CreateDataSource,
-  UpdateDataSource
+  UpdateDataSource,
+  SearchDataSourcesParams
 > {
   constructor(config: IConfig) {
     super(config, 'data-sources');

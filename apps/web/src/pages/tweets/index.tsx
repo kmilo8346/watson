@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Tweet as TweetComponent } from 'react-tweet';
 import { filterClient, tweetClient } from '../../clients';
 import { Filter, ICollection, Tweet } from '@watson/models';
-import { create } from 'domain';
 
 const { Sider, Content } = Layout;
 

@@ -1,7 +1,7 @@
 import { Credentials } from '@watson/models';
 import { IConfig, RESTClient } from './RESTClient';
 
-export class AuthClient extends RESTClient<any, any, any> {
+export class AuthClient extends RESTClient<any, any, any, any> {
   constructor(config: IConfig) {
     super(config, 'auth');
   }

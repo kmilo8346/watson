@@ -12,10 +12,10 @@
       "name": "⏰ Downloader",
       "path": "./apps/downloader/src"
     },
-    // {
-    //   "name": "⏰ Analyzer",
-    //   "path": "./apps/analyzer/src"
-    // },
+    {
+      "name": "⏰ Filterer",
+      "path": "./apps/filterer/src"
+    },
     {
       "name": "📦 Models",
       "path": "./libs/models/src"

@@ -6,5 +6,5 @@ export class Filter extends Entity {
   description!: string;
   ai_instruction!: string;
   enabled!: boolean;
-  last_analized_date?: string;
+  last_filter_date?: string;
 }

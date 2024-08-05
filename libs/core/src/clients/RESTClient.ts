@@ -24,7 +24,7 @@ export interface IConfig {
   };
 }
 
-export class RESTClient<E, C, U> {
+export class RESTClient<E, C, U, S> {
   protected axios: AxiosInstance;
   protected baseUrl: string;
   protected collection: string;
@@ -70,7 +70,7 @@ export class RESTClient<E, C, U> {
   }
 
   async getAll(
-    params: SearchParams,
+    params: S,
     config?: AxiosRequestConfig
   ): Promise<ICollection<E>> {
     const response = await this.axios.get<ICollection<E>>(

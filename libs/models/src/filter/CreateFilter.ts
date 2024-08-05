@@ -29,5 +29,5 @@ export class CreateFilter {
 
   @IsOptional()
   @IsISO8601()
-  last_analized_date?: string;
+  last_filter_date?: string;
 }
