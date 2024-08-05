@@ -39,7 +39,8 @@
       "exclude": [
         "apps/api-e2e/**/*",
         "apps/downloader-e2e/**/*",
-        "apps/filterer-e2e/**/*"
+        "apps/filterer-e2e/**/*",
+        "apps/evaluator-e2e/**/*"
       ]
     },
     {

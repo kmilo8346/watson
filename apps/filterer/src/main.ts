@@ -1,3 +1,4 @@
+import { Tweet } from '@watson/models';
 import { dataSourceClient, filterClient, tweetClient } from './clients';
 import { Filterer } from './lib/Filterer';
 
@@ -51,7 +52,7 @@ const run = async () => {
 
         // Filtrar tweets en paralelo
         const compliedList = await Promise.all(
-          tweets.data.map((tweet) => {
+          tweets.data.map((tweet: Tweet) => {
             return filterer.comply(tweet.text);
           })
         );
@@ -59,15 +60,20 @@ const run = async () => {
         // Marco los tweets que cumplen con el filtro
         const updateRequests: Promise<void>[] = [];
         for (const [index, complied] of compliedList.entries()) {
+          let filterIds = tweets.data[index].filter_ids || [];
           if (complied) {
-            updateRequests.push(
-              tweetClient.update(tweets.data[index]._id, {
-                filter_ids: Array.from(
-                  new Set([...tweets.data[index].filter_ids, filter._id])
-                ),
-              })
-            );
+            // Lo agrega
+            filterIds.push(filter._id);
+          } else {
+            // lo elimina
+            filterIds = filterIds.filter((id) => id !== filter._id);
           }
+          updateRequests.push(
+            tweetClient.update(tweets.data[index]._id, {
+              // Elimino los duplicados
+              filter_ids: Array.from(new Set(filterIds)),
+            })
+          );
         }
 
         // Actualizo el last_filter_date del filtro

@@ -1,4 +1,13 @@
-import { Checkbox, Flex, Layout, message, Spin, Typography } from 'antd';
+import {
+  Checkbox,
+  Divider,
+  Flex,
+  Layout,
+  message,
+  Pagination,
+  Spin,
+  Typography,
+} from 'antd';
 import { useEffect, useState } from 'react';
 import { Tweet as TweetComponent } from 'react-tweet';
 import { filterClient, tweetClient } from '../../clients';
@@ -17,6 +26,7 @@ export function TweetsPage(props: TweetsPageProps) {
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<ICollection<Filter>>();
   const [tweets, setTweets] = useState<ICollection<Tweet>>();
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
   const handleBoot = async () => {
     try {
@@ -32,7 +42,10 @@ export function TweetsPage(props: TweetsPageProps) {
       setView('ROOT');
 
       setTimeout(() => {
-        handleSearch([]);
+        handleSearch({
+          from: 0,
+          filterIds: [],
+        });
       }, 100);
     } catch (error) {
       console.error('Failed to boot:', error);
@@ -43,16 +56,19 @@ export function TweetsPage(props: TweetsPageProps) {
     }
   };
 
-  const handleSearch = async (checkedValues: string[]) => {
+  const handleSearch = async (searchParams: {
+    from: number;
+    filterIds: string[];
+  }) => {
     try {
       setLoading(true);
       const tweets = await tweetClient.getAll({
-        from: 0,
+        from: searchParams.from,
         size: 10,
         filter: {
           data_source_id: props.dataSourceId,
           filter_ids: {
-            $in: checkedValues,
+            $in: searchParams.filterIds,
           },
         },
         sort: {
@@ -74,6 +90,15 @@ export function TweetsPage(props: TweetsPageProps) {
     handleBoot();
   }, []);
 
+  useEffect(() => {
+    // Hago una busqueda cuando se seleccionan los filtros
+    // El from siempre se reinicia a 0
+    handleSearch({
+      from: 0,
+      filterIds: selectedFilters,
+    });
+  }, [selectedFilters]);
+
   const renderBOOT = () => (
     <Flex justify="center" align="center" style={{ minHeight: '100vh' }}>
       <Spin />
@@ -82,22 +107,42 @@ export function TweetsPage(props: TweetsPageProps) {
 
   const renderROOT = () => {
     const renderContent = () => {
-      if (!filters) {
+      if (!tweets) {
         return <Spin />;
       }
 
+      // Infiero la pagina actual
+      const page = tweets.from / tweets.size + 1;
+
       return (
         <div className="light">
-          {tweets?.data.map((tweet) => (
-            <TweetComponent key={tweet._id} id={tweet.id} />
-          ))}
+          <Flex vertical align="center">
+            {tweets.data.map((tweet) => (
+              <TweetComponent key={tweet._id} id={tweet.id} />
+            ))}
+            <Pagination
+              align="start"
+              defaultCurrent={page}
+              total={tweets.total}
+              onChange={(page) => {
+                // Cuando cambia la pagina, se hace una busqueda
+                // El from se calcula en base a la pagina
+                // Uso los filtros actualmentet seleccionados
+                handleSearch({
+                  // Infiero el from en base a la pagina
+                  from: (page - 1) * tweets.size,
+                  filterIds: selectedFilters,
+                });
+              }}
+            />
+          </Flex>
         </div>
       );
     };
     return (
       <Layout>
         <Sider
-          width="35%"
+          width="30%"
           style={{
             backgroundColor: 'white',
           }}
@@ -108,10 +153,13 @@ export function TweetsPage(props: TweetsPageProps) {
               label: filter.name,
               value: filter._id,
             }))}
-            onChange={handleSearch}
+            onChange={setSelectedFilters}
             style={{ display: 'flex', flexDirection: 'column' }}
           />
         </Sider>
+
+        <Divider type="vertical" style={{ height: '100vh', margin: 0 }} />
+
         <Layout>
           <Content
             style={{

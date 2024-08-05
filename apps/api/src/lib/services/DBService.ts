@@ -147,11 +147,15 @@ export abstract class DBService<T extends Document, C, U> {
       { $set: toUpdate }
     );
 
-    if (result.modifiedCount === 0) {
+    if (result.acknowledged === false) {
       throw new HttpException(
         `Failed to update document`,
         HttpStatus.INTERNAL_SERVER_ERROR
       );
+    }
+
+    if (result.modifiedCount === 0) {
+      throw new HttpException(`Document not found`, HttpStatus.NOT_FOUND);
     }
   }
 

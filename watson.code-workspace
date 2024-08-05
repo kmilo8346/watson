@@ -17,6 +17,10 @@
       "path": "./apps/filterer/src"
     },
     {
+      "name": "🕵️‍♂️ Evaluator",
+      "path": "./apps/evaluator/src"
+    },
+    {
       "name": "📦 Models",
       "path": "./libs/models/src"
     },

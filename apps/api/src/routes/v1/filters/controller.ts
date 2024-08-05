@@ -37,7 +37,7 @@ export class FiltersController {
 
   @Put('/:id')
   async update(@Param('id') id: string, @Body() updateFilter: UpdateFilter) {
-    return this.service.update(id, updateFilter);
+    await this.service.update(id, updateFilter);
   }
 
   @Delete('/:id')
