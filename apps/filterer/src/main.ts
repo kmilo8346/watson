@@ -35,6 +35,7 @@ const run = async () => {
       // y el last_filter_date del filtro
       const size = 20;
       let from = 0;
+      let cumulativeTotal = filter.last_filtered?.cumulative_total || 0;
       while (true) {
         const tweets = await tweetClient.getAll({
           from,
@@ -42,7 +43,7 @@ const run = async () => {
           filter: {
             data_source_id: dataSource._id,
             created_at: {
-              $gt: filter.last_filter_date,
+              $gt: filter.last_filtered?.date,
             },
           },
           sort: {
@@ -64,6 +65,7 @@ const run = async () => {
           if (complied) {
             // Lo agrega
             filterIds.push(filter._id);
+            cumulativeTotal++;
           } else {
             // lo elimina
             filterIds = filterIds.filter((id) => id !== filter._id);
@@ -76,17 +78,18 @@ const run = async () => {
           );
         }
 
-        // Actualizo el last_filter_date del filtro
-        if (tweets.data.length > 0) {
-          updateRequests.push(
-            filterClient.update(filter._id, {
-              last_filter_date: tweets.data[tweets.data.length - 1].created_at,
-            })
-          );
-        }
-
         // Espero a que los updates terminen
         await Promise.all(updateRequests);
+
+        // Actualizo el last_filtered del filtro
+        if (tweets.data.length > 0) {
+          await filterClient.update(filter._id, {
+            last_filtered: {
+              date: tweets.data[tweets.data.length - 1].created_at,
+              cumulative_total: cumulativeTotal,
+            },
+          });
+        }
 
         console.log(`> Filtered: ${tweets.data.length} / ${tweets.total}`);
 

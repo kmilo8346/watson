@@ -1,10 +1,25 @@
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsISO8601,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
+  Min,
+  ValidateNested,
 } from 'class-validator';
+
+class LastFiltered {
+  @IsNotEmpty()
+  @IsISO8601()
+  date!: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  cumulative_total!: number;
+}
 
 export class UpdateFilter {
   @IsOptional()
@@ -27,6 +42,7 @@ export class UpdateFilter {
   enabled?: boolean;
 
   @IsOptional()
-  @IsISO8601()
-  last_filter_date?: string;
+  @ValidateNested()
+  @Type(() => LastFiltered)
+  last_filtered?: LastFiltered;
 }

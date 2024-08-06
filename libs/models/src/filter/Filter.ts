@@ -6,5 +6,8 @@ export class Filter extends Entity {
   description!: string;
   ai_instruction!: string;
   enabled!: boolean;
-  last_filter_date?: string;
+  last_filtered?: {
+    date: string;
+    cumulative_total: number;
+  };
 }

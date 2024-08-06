@@ -26,8 +26,4 @@ export class CreateFilter {
   @IsOptional()
   @IsBoolean()
   enabled?: boolean = true;
-
-  @IsOptional()
-  @IsISO8601()
-  last_filter_date?: string;
 }

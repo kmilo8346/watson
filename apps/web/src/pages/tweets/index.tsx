@@ -1,4 +1,5 @@
 import {
+  Badge,
   Checkbox,
   Divider,
   Flex,
@@ -15,6 +16,14 @@ import { Filter, ICollection, Tweet } from '@watson/models';
 
 const { Sider, Content } = Layout;
 
+const loadCumulativeByFilter = () => {
+  const raw = localStorage.getItem('@CUMULATIVE_BY_FILTER');
+  if (!raw) {
+    return {};
+  }
+  return JSON.parse(raw);
+};
+
 type View = 'BOOT' | 'ROOT';
 
 interface TweetsPageProps {
@@ -27,6 +36,12 @@ export function TweetsPage(props: TweetsPageProps) {
   const [filters, setFilters] = useState<ICollection<Filter>>();
   const [tweets, setTweets] = useState<ICollection<Tweet>>();
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  // Usado para mostrar badges en los filtros
+  // En el local storage se guarda el total acumulado por filtro
+  // Si difiere el total del back con el del front se muestra un badge
+  const [cumulativeByFiler, setCumulativeByFilter] = useState<
+    Record<string, number>
+  >(loadCumulativeByFilter());
 
   const handleBoot = async () => {
     try {
@@ -133,6 +148,10 @@ export function TweetsPage(props: TweetsPageProps) {
                   from: (page - 1) * tweets.size,
                   filterIds: selectedFilters,
                 });
+
+                setTimeout(() => {
+                  window.scrollTo(0, 0);
+                }, 100);
               }}
             />
           </Flex>
@@ -149,12 +168,54 @@ export function TweetsPage(props: TweetsPageProps) {
         >
           <Typography.Title level={5}>Filtros</Typography.Title>
           <Checkbox.Group
-            options={filters?.data.map((filter) => ({
-              label: filter.name,
-              value: filter._id,
-            }))}
-            onChange={setSelectedFilters}
-            style={{ display: 'flex', flexDirection: 'column' }}
+            options={filters?.data.map((filter) => {
+              const cumulativeInClient = cumulativeByFiler[filter._id] || 0;
+              const cumulativeInDB =
+                filter.last_filtered?.cumulative_total || 0;
+              if (cumulativeInClient < cumulativeInDB) {
+                const count = cumulativeInDB - cumulativeInClient;
+                return {
+                  label: (
+                    <div>
+                      {filter.name}
+                      <Badge count={count} style={{ marginLeft: '10px' }} />
+                    </div>
+                  ),
+                  value: filter._id,
+                };
+              }
+
+              return {
+                label: filter.name,
+                value: filter._id,
+              };
+            })}
+            onChange={(filterIds) => {
+              setSelectedFilters(filterIds);
+
+              // Actualizo el total acumulado por filtro
+              const toUpdate = { ...cumulativeByFiler };
+              for (let i = 0; i < filterIds.length; i++) {
+                const filterId = filterIds[i];
+                const match = filters?.data.find((f) => f._id === filterId);
+                // Todos los filtros seleccionados
+                // son actualizados con el total acumulado
+                // que viene de la base de datos
+                toUpdate[filterId] =
+                  match?.last_filtered?.cumulative_total || 0;
+              }
+
+              setCumulativeByFilter(toUpdate);
+
+              // Guardo en el local storage
+              setTimeout(() => {
+                localStorage.setItem(
+                  '@CUMULATIVE_BY_FILTER',
+                  JSON.stringify(toUpdate)
+                );
+              }, 10);
+            }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
           />
         </Sider>
 
