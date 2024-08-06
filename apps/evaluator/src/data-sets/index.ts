@@ -1,9 +1,11 @@
 import fsdProblems from './fsd-problems';
-import fsdInterventions from './fsd-interventions';
-import salesPerformance from './sales-performance';
+import fsdWithInterventions from './fsd-with-interventions';
+import fsdWithoutInterventions from './fsd-without-interventions';
+import carSalesPerformance from './car-sales-performance';
 
 export default {
   'fsd-problems': fsdProblems,
-  'fsd-interventions': fsdInterventions,
-  'sales-performance': salesPerformance,
+  'fsd-with-interventions': fsdWithInterventions,
+  'fsd-without-interventions': fsdWithoutInterventions,
+  'car-sales-performance': carSalesPerformance,
 };

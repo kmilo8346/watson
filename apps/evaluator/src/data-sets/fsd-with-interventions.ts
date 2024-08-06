@@ -1,7 +1,7 @@
 import { DataSet } from '../types';
 
 const dataSet: DataSet = {
-  name: 'FSD Interventions',
+  name: 'FSD With Interventions',
   instructions:
     'Identifica si en el tweet se menciona que el usario tuvo que hacer una intervención usando Tesla FSD. El término en ingles es "intervention" o "disengagements". El tweet debe mencionar de forma explícita de una intervención con Tesla FSD.',
   examples: [

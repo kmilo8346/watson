@@ -157,7 +157,7 @@ export function RootPage() {
                 })}
               </Select>
             </Header>
-            <Content style={{ margin: '16px 16px' }}>
+            <Content style={{ margin: 48 }}>
               <div
                 style={{
                   padding: 24,

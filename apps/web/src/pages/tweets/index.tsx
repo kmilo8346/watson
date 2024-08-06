@@ -52,6 +52,9 @@ export function TweetsPage(props: TweetsPageProps) {
         filter: {
           data_source_id: props.dataSourceId,
         },
+        sort: {
+          name: -1,
+        },
       });
 
       setFilters(filters);
@@ -165,6 +168,7 @@ export function TweetsPage(props: TweetsPageProps) {
           width="30%"
           style={{
             backgroundColor: 'white',
+            padding: '0 32px',
           }}
         >
           <Typography.Title level={5}>Filtros</Typography.Title>

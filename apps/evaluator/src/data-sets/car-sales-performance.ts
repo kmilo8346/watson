@@ -1,9 +1,9 @@
 import { DataSet } from '../types';
 
 const dataSet: DataSet = {
-  name: 'Sales Performance',
+  name: 'Car Sales Performance',
   instructions:
-    'Identificar si este tweet menciona el rendimiento de ventas de Tesla, como unidades vendidas, registradas o aseguradas. Debe mostrar de forma explícita datos sobre ventas.',
+    'Identificar si este tweet menciona el rendimiento de ventas de autos Tesla, como unidades vendidas, registradas o aseguradas. Debe mostrar de forma explícita datos sobre ventas.',
   examples: [
     {
       input: `Tesla has surpassed 20,000 units registered in Korea, making this Tesla’s best year already since entering the Korean market. 
