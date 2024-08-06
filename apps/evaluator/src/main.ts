@@ -8,7 +8,7 @@ interface TestResult {
   output: boolean;
 }
 
-const dataSet = dataSets['fsd-problems'];
+const dataSet = dataSets['sales-performance'];
 
 const run = async () => {
   const filterer = new Filterer(dataSet.instructions);

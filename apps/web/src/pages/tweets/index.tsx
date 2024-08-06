@@ -7,6 +7,7 @@ import {
   message,
   Pagination,
   Spin,
+  Tooltip,
   Typography,
 } from 'antd';
 import { useEffect, useState } from 'react';
@@ -169,24 +170,28 @@ export function TweetsPage(props: TweetsPageProps) {
           <Typography.Title level={5}>Filtros</Typography.Title>
           <Checkbox.Group
             options={filters?.data.map((filter) => {
+              let label = (
+                <Tooltip title={filter.description}>
+                  <div>{filter.name}</div>
+                </Tooltip>
+              );
+
               const cumulativeInClient = cumulativeByFiler[filter._id] || 0;
               const cumulativeInDB =
                 filter.last_filtered?.cumulative_total || 0;
               if (cumulativeInClient < cumulativeInDB) {
                 const count = cumulativeInDB - cumulativeInClient;
-                return {
-                  label: (
-                    <div>
-                      {filter.name}
-                      <Badge count={count} style={{ marginLeft: '10px' }} />
-                    </div>
-                  ),
-                  value: filter._id,
-                };
+
+                label = (
+                  <div>
+                    {filter.name}
+                    <Badge count={count} style={{ marginLeft: '10px' }} />
+                  </div>
+                );
               }
 
               return {
-                label: filter.name,
+                label,
                 value: filter._id,
               };
             })}
