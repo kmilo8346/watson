@@ -1,7 +1,7 @@
 import { DataSet } from '../types';
 
 const dataSet: DataSet = {
-  name: 'FSD Problems',
+  name: 'FSD Bad Experiences',
   instructions:
     'Identifica si en el tweet se menciona algun problema que haya tenido el usuario usando Tesla FSD. El tweet debe mencionar FSD de forma explícita.',
   examples: [

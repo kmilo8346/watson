@@ -7,7 +7,6 @@ import {
   message,
   Pagination,
   Spin,
-  Tooltip,
   Typography,
 } from 'antd';
 import { useEffect, useState } from 'react';
@@ -83,7 +82,7 @@ export function TweetsPage(props: TweetsPageProps) {
       setLoading(true);
       const tweets = await tweetClient.getAll({
         from: searchParams.from,
-        size: 10,
+        size: 20,
         filter: {
           data_source_id: props.dataSourceId,
           filter_ids: {
@@ -174,11 +173,7 @@ export function TweetsPage(props: TweetsPageProps) {
           <Typography.Title level={5}>Filtros</Typography.Title>
           <Checkbox.Group
             options={filters?.data.map((filter) => {
-              let label = (
-                <Tooltip title={filter.description}>
-                  <div>{filter.name}</div>
-                </Tooltip>
-              );
+              let label = <div>{filter.name}</div>;
 
               const cumulativeInClient = cumulativeByFiler[filter._id] || 0;
               const cumulativeInDB =

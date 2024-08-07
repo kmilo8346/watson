@@ -8,7 +8,9 @@ interface TestResult {
   output: boolean;
 }
 
-const dataSet = dataSets['fsd-without-interventions'];
+const dataSet = dataSets['fsd-bad-experiences'];
+// const dataSet = dataSets['fsd-good-experiences'];
+// const dataSet = dataSets['fsd-without-interventions'];
 
 const run = async () => {
   const filterer = new Filterer(dataSet.instructions);
