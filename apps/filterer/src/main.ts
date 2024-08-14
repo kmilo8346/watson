@@ -1,4 +1,4 @@
-import { Tweet } from '@watson/models';
+import { SearchTweetsParams, Tweet } from '@watson/models';
 import { dataSourceClient, filterClient, tweetClient } from './clients';
 import { Filterer } from './lib/Filterer';
 
@@ -37,7 +37,7 @@ const run = async () => {
       let from = 0;
       let cumulativeTotal = filter.last_filtered?.cumulative_total || 0;
       while (true) {
-        const tweets = await tweetClient.getAll({
+        const searchParams: SearchTweetsParams = {
           from,
           size,
           filter: {
@@ -49,7 +49,16 @@ const run = async () => {
           sort: {
             created_at: 1,
           },
-        });
+        };
+        // Si el filtro tiene un scope de autores
+        // los uso para hacer un filtro más específico
+        if (filter.scope_authors) {
+          searchParams.filter.author_id = {
+            $in: filter.scope_authors,
+          };
+        }
+
+        const tweets = await tweetClient.getAll(searchParams);
 
         // Filtrar tweets en paralelo
         const compliedList = await Promise.all(

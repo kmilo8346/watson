@@ -3,24 +3,13 @@ import { DataSet } from '../types';
 const dataSet: DataSet = {
   name: 'Tesla Car Sales',
   instructions:
-    'Identificar si este tweet menciona el rendimiento de ventas de autos Tesla, como unidades vendidas, registradas o aseguradas. Debe mostrar de forma explícita datos sobre ventas.',
+    // 'Identificar si este tweet provee información económica de ventas de autos Tesla, como unidades vendidas o registradas. Debe mostrar de forma explícita datos sobre ventas.',
+    'Identificar si este tweet provee información económica de ventas de autos Tesla, como unidades vendidas o registradas. El tweet debe mencionar de forma explícita las cifras de ventas o el registro de unidades vendidas. Comparaciones hipotéticas o cualquier otro dato financiero que no mencione directamente el número de unidades vendidas no debe considerarse como información sobre ventas.',
   examples: [
     {
       input: `Tesla has surpassed 20,000 units registered in Korea, making this Tesla’s best year already since entering the Korean market. 
 
 $TSLA`,
-      expected_output: true,
-    },
-    {
-      input: `NEWS: 12,500 Teslas were insured in China last week.`,
-      expected_output: true,
-    },
-    {
-      input: `$TSLA 🇨🇳
-BREAKING: Tesla China insured units
-
-< Aug 2024>
-(29)-4 : 12,500 `,
       expected_output: true,
     },
     {
@@ -41,7 +30,11 @@ The macro environment and interest rates are also much harsher now.
 As Elon said, “Prototypes are easy, production is hard.”
 
 Tesla remains…`,
-      expected_output: true,
+      expected_output: false,
+    },
+    {
+      input: `The level of inventory legacy automakers are sitting on in simple terms is like Tesla producing 1,000,000 Teslas and having 500,000 of them sitting in inventory not being sold. This is alarming FACT that is not talked about in mainstream media!`,
+      expected_output: false,
     },
   ],
 };

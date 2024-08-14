@@ -13,8 +13,8 @@ interface TestResult {
 // const dataSet = dataSets['fsd-good-experiences'];
 // const dataSet = dataSets['fsd-without-interventions'];
 // const dataSet = dataSets['tesla'];
-// const dataSet = dataSets['tesla-car-sales'];
-const dataSet = dataSets['tesla-megapack-sales'];
+const dataSet = dataSets['tesla-car-sales'];
+// const dataSet = dataSets['tesla-megapack-sales'];
 
 const run = async () => {
   const filterer = new Filterer(dataSet.instructions);

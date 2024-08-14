@@ -1,5 +1,6 @@
 import { Type } from 'class-transformer';
 import {
+  ArrayNotEmpty,
   IsBoolean,
   IsISO8601,
   IsNotEmpty,
@@ -36,6 +37,11 @@ export class UpdateFilter {
   @IsNotEmpty()
   @IsString()
   ai_instruction?: string;
+
+  @IsOptional()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  scope_authors?: string[];
 
   @IsOptional()
   @IsBoolean()

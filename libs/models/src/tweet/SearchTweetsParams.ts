@@ -23,11 +23,23 @@ class FilterIds {
   $in!: string[];
 }
 
+class AuthorId {
+  @IsArray()
+  @ArrayNotEmpty()
+  @IsString({ each: true })
+  $in!: string[];
+}
+
 class Filter {
   @IsOptional()
   @IsString()
   @IsNotEmpty()
   data_source_id?: string;
+
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AuthorId)
+  author_id?: AuthorId;
 
   @IsOptional()
   @ValidateNested()

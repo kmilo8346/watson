@@ -5,6 +5,7 @@ export class Filter extends Entity {
   name!: string;
   description!: string;
   ai_instruction!: string;
+  scope_authors?: string[];
   enabled!: boolean;
   last_filtered?: {
     date: string;

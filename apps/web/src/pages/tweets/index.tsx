@@ -49,6 +49,7 @@ export function TweetsPage(props: TweetsPageProps) {
         from: 0,
         size: 10,
         filter: {
+          enabled: true,
           data_source_id: props.dataSourceId,
         },
         sort: {
