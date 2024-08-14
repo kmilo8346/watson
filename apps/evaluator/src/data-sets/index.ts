@@ -1,13 +1,19 @@
+import fsd from './fsd';
 import fsdBadExperiences from './fsd-bad-experiences';
 import fsdGoodExperiences from './fsd-good-experiences';
 import fsdWithInterventions from './fsd-with-interventions';
 import fsdWithoutInterventions from './fsd-without-interventions';
-import carSalesPerformance from './car-sales-performance';
+import tesla from './tesla';
+import teslaCarSales from './tesla-car-sales';
+import teslaMegapackSales from './tesla-megapack-sales';
 
 export default {
+  fsd: fsd,
   'fsd-bad-experiences': fsdBadExperiences,
   'fsd-good-experiences': fsdGoodExperiences,
   'fsd-with-interventions': fsdWithInterventions,
   'fsd-without-interventions': fsdWithoutInterventions,
-  'car-sales-performance': carSalesPerformance,
+  tesla: tesla,
+  'tesla-car-sales': teslaCarSales,
+  'tesla-megapack-sales': teslaMegapackSales,
 };

@@ -36,12 +36,9 @@ const downloadTweets = async (dataSource: DataSource) => {
     new Date().getTime() - 48 * 60 * 60 * 1000
   ).toISOString();
 
-  // Si ya se descargaron tweets y no son de más de 48 horas
-  // entonces se actualiza el límite
+  // Si ya se descargaron tweets entonces se actualiza el límite
   if (tweets.data.length > 0) {
-    if (new Date(tweets.data[0].created_at) > new Date(limitDate)) {
-      limitDate = tweets.data[0].created_at;
-    }
+    limitDate = tweets.data[0].created_at;
   }
 
   // Descargo los tweets

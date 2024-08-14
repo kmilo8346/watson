@@ -32,6 +32,14 @@ Overall, crazy impressive, safe, and comfortable.`,
 Tesla: "We count any crash in which Autopilot was deactivated within 5 seconds before impact."`,
       expected_output: false,
     },
+    {
+      input: `For some reason previous versions of FSD really struggled with this section of road. I had to keep nudging the accelerator to get it to move in the past. 
+
+Not anymore. 
+
+FSD 12.5.1.3 drives through with no hesitations just like a human would do.`,
+      expected_output: false,
+    },
   ],
 };
 

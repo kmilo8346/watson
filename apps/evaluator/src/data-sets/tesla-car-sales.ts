@@ -1,7 +1,7 @@
 import { DataSet } from '../types';
 
 const dataSet: DataSet = {
-  name: 'Car Sales Performance',
+  name: 'Tesla Car Sales',
   instructions:
     'Identificar si este tweet menciona el rendimiento de ventas de autos Tesla, como unidades vendidas, registradas o aseguradas. Debe mostrar de forma explícita datos sobre ventas.',
   examples: [

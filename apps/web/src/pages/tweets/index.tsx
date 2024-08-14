@@ -52,7 +52,7 @@ export function TweetsPage(props: TweetsPageProps) {
           data_source_id: props.dataSourceId,
         },
         sort: {
-          name: -1,
+          name: 1,
         },
       });
 
