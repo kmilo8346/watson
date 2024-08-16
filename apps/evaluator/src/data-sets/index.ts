@@ -1,11 +1,11 @@
-import fsd from './fsd';
-import fsdBadExperiences from './fsd-bad-experiences';
-import fsdGoodExperiences from './fsd-good-experiences';
-import fsdWithInterventions from './fsd-with-interventions';
-import fsdWithoutInterventions from './fsd-without-interventions';
-import tesla from './tesla';
-import teslaCarSales from './tesla-car-sales';
-import teslaMegapackSales from './tesla-megapack-sales';
+import fsd from './fsd/fsd';
+import fsdBadExperiences from './fsd/fsd-bad-experiences';
+import fsdGoodExperiences from './fsd/fsd-good-experiences';
+import fsdWithInterventions from './fsd/fsd-with-interventions';
+import fsdWithoutInterventions from './fsd/fsd-without-interventions';
+import tesla from './tesla/tesla';
+import teslaCarSales from './tesla/tesla-car-sales';
+import teslaMegapackSales from './tesla/tesla-megapack-sales';
 
 export default {
   fsd: fsd,

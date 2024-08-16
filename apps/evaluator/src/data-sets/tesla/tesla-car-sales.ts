@@ -1,4 +1,4 @@
-import { DataSet } from '../types';
+import { DataSet } from '../../types';
 
 const dataSet: DataSet = {
   name: 'Tesla Car Sales',
